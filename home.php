@@ -4,9 +4,7 @@
 	
     <?php
     	$user = get_login_user();		/*Now , if the user is in this page, means user is login , then we have to find the correspoing details about that user , and we will bring from database, and then will show in this home page .*/
-    	// echo json_encode($user)."<br>";
-        // echo json_encode($user);	
-        // echo json_encode($_SESSION['token']);
+    	// now user info will be stored in the $user array.
     ?>
 
     <div class="row">
@@ -21,7 +19,7 @@
     	</div>
     	<div class="col-lg-8">
     		<h1>Welcome In The Home Page</h1>
-    		<h3>Id = <?php echo $user["id"];?></h3>			<!--so we have sotered the data in user var , so now we are accessing it like that we do for objects.-->
+    		<h3>Id = <?php echo $user["id"];?></h3>			<!--so we have stoered the data in user var , so now we are accessing it like that we do for objects.-->
     		<h3>Name = <?php echo $user["name"];?></h3>
     		<h3>Email = <?php echo $user["email"];?></h3>
     		<p><?php echo $_SESSION["token"];?></p>

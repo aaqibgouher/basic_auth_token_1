@@ -2,7 +2,7 @@
 <?php
 if($_SERVER["REQUEST_METHOD"] == "POST"){		/*if the method is post , then only.*/
 	try{
-		/* whatever the user will enter , it will store in either $_POST or in $_REQUEST, sp we are just taking the values from it and storing it here.trim will remove white spaces etc*/
+		/* whatever the user will enter , it will store in either $_POST or in $_REQUEST, so we are just taking the values from it and storing it here.trim will remove white spaces etc*/
 		$user_name = trim($_REQUEST['name']);			
 		$user_email = trim($_REQUEST['email']);
 		$user_pass = trim($_REQUEST['pass']);
@@ -14,16 +14,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){		/*if the method is post , then only.*
 		if($user_pass != $user_confirm_pass) throw new Exception("Password is not matched !");	/*here we are checking that , whatever the password user has entered , is matching with it or not*/
 		
 
-    	$result =  mysqli_query($con, "select * from users where email = '$user_email'");		/*This function is used to execute SQL command .here we are bringing that data whose email is equal to user_email*/
-    	$user = mysqli_fetch_assoc($result);		/*used to fetch all the selected data. This function returns row as an associative array, a numeric array, or both. This function returns FALSE if there are no more rows.so basically user here is array*/
+    	$result =  mysqli_query($con, "select * from users where email = '$user_email'");		/*This function is used to execute SQL command .here we are bringing that data whose email is equal to user_email . the email that user has entered is it matching with our any of the email in our DB. if it will match , means the email that user has entered is already exist.*/
+    	$user = mysqli_fetch_assoc($result);		/*used to fetch all the selected data. This function returns an associative array, means in key-value pair format . This function returns FALSE if there are no more rows.so basically user here is array*/
 
     	if($user) throw new Exception("Email has already taken !");		/*if it is true , means it has got the array , means user is already exist in the Db , means user has already registered.So we will show error.and if there is not any match , then it will go further.*/
     	
 
-
-		$result = mysqli_query($con, "insert into users values (null,'$user_name','$user_email','$user_pass');");		/*If there is not match , means its for new registration, then we will register them.*/
+		$result = mysqli_query($con, "insert into users values (null,'$user_name','$user_email','$user_pass');");		/*If it is not matched , means its for new registration, then we will register them. Whatever the user detail , we will store in users table.*/
 		if($result){
-			$message = "Successfully Registered ! <br>";	/*if result will true, we will tell store the msg in variable . else will show error.*/
+			$message = "Successfully Registered ! <br>";	/*if result will true, we will  store the msg in variable . else will show error.*/
 		}else{
 			$error = "Error : ".mysqli_error($con);
 		}
@@ -32,6 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){		/*if the method is post , then only.*
 	}
 }
 ?>
+<!-- from now, created a page for registration using html or bootstrap ! -->
 <div class="container-fluid">
 	<h1 style="text-align: center;">Registration form </h1>
 	
@@ -48,7 +48,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){		/*if the method is post , then only.*
 			<form action="register.php" method="post">		<!--action is on the same page, and method is post-->
 				<div class="form-input">
 				    <label for="name">Name :</label><br>
-				    <input type="text" class="form-control" id="name" placeholder="Enter Your Name" name="name" required><br>
+				    <input type="text" class="form-control" id="name" placeholder="Enter Your Name" name="name" required><br> <!--here the value name is name, so whatever the value , we will access it using that value only . So what happens is when user will enter the details, then the value will store in POST array . Inside that POST , it is like key-value pair. so if we will do $_POST["value"], then we will get the value that user will enter. same thing is for all !-->
+
 			  	</div>
 				<div class="form-input">
 				    <label for="email">Email :</label><br>
